@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "243979579645",
+    "project_id": "ilabs-comeunity",
+    "storage_bucket": "ilabs-comeunity.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243979579645:android:8fb9442b06fccd5c4dce94",
+        "android_client_info": {
+          "package_name": "com.ilabs.comeunity"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMVK_kbGz1NeNDBJcgvdet4rZX8o81C8s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -3,24 +3,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:gravity="center"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/greetingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome Back!"
+        android:layout_gravity="left"
+        android:textSize="24sp"
+        android:layout_marginBottom="16dp" />
 
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email" />
+        android:hint="Email*"
+        android:layout_marginBottom="8dp"
+        android:inputType="textEmailAddress" />
 
-    <EditText
-        android:id="@+id/passwordEditText"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
-        android:inputType="textPassword" />
+        android:layout_marginBottom="8dp">
+
+        <EditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password*"
+            android:inputType="textPassword" />
+
+        <ImageButton
+            android:id="@+id/passwordToggle"
+            android:layout_width="35dp"
+            android:layout_height="25dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/closed_eye"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_marginEnd="8dp" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/signInButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign In" />
+        android:text="Sign In"
+        android:backgroundTint="@color/black"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/signUpTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Don't have an account? Sign Up Here"
+        android:textColor="@color/black"
+        android:layout_marginTop="16dp" />
 </LinearLayout>

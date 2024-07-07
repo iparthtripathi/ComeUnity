@@ -2,10 +2,14 @@ package com.ilabs.comeunity
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -17,49 +21,90 @@ import com.ilabs.comeunity.Models.User
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
-    private lateinit var database: DatabaseReference
+    private var passwordVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
         auth = FirebaseAuth.getInstance()
-        database = FirebaseDatabase.getInstance().reference
 
+        val nameEditText = findViewById<EditText>(R.id.nameEditText)
         val emailEditText = findViewById<EditText>(R.id.emailEditText)
         val passwordEditText = findViewById<EditText>(R.id.passwordEditText)
-        val nameEditText = findViewById<EditText>(R.id.nameEditText)
-        val residenceRadioGroup = findViewById<RadioGroup>(R.id.residenceRadioGroup)
+        val passwordToggle = findViewById<ImageButton>(R.id.passwordToggle)
         val flatNumberEditText = findViewById<EditText>(R.id.flatNumberEditText)
         val signUpButton = findViewById<Button>(R.id.signUpButton)
+        val signInTextView = findViewById<TextView>(R.id.signInTextView)
+
+
+        val radioButtons = listOf(
+            findViewById<RadioButton>(R.id.blockA),
+            findViewById<RadioButton>(R.id.blockB),
+            findViewById<RadioButton>(R.id.blockC),
+            findViewById<RadioButton>(R.id.krea),
+            findViewById<RadioButton>(R.id.iiit),
+            findViewById<RadioButton>(R.id.industry)
+        )
+
+        radioButtons.forEach { radioButton ->
+            radioButton.setOnClickListener {
+                radioButtons.forEach { it.isChecked = false }
+                radioButton.isChecked = true
+            }
+        }
+
+
+        passwordToggle.setOnClickListener {
+            passwordVisible = !passwordVisible
+            if (passwordVisible) {
+                passwordEditText.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                passwordToggle.setImageResource(R.drawable.eye)
+            } else {
+                passwordEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                passwordToggle.setImageResource(R.drawable.closed_eye)
+            }
+            passwordEditText.setSelection(passwordEditText.text.length)
+        }
 
         signUpButton.setOnClickListener {
+            val name = nameEditText.text.toString()
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
-            val name = nameEditText.text.toString()
-            val selectedResidenceId = residenceRadioGroup.checkedRadioButtonId
-            val residence = findViewById<RadioButton>(selectedResidenceId).text.toString()
             val flatNumber = flatNumberEditText.text.toString()
+            val selectedResidence = radioButtons.find { it.isChecked }?.text.toString()
 
-            if (email.isNotEmpty() && password.isNotEmpty() && name.isNotEmpty() && residence.isNotEmpty() && flatNumber.isNotEmpty()) {
+            if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && selectedResidence.isNotEmpty() && flatNumber.isNotEmpty()) {
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
-                            val user = User(auth.currentUser!!.uid, email, name, residence, flatNumber)
-                            database.child("users").child(auth.currentUser!!.uid).setValue(user)
-                                .addOnCompleteListener {
-                                    val intent = Intent(this, SignInActivity::class.java)
-                                    startActivity(intent)
-                                    finish()
-                                }
+                            val user = auth.currentUser
+                            user?.let {
+                                val uid = it.uid
+                                val user = User(uid, email, name, selectedResidence, flatNumber)
+                                FirebaseDatabase.getInstance().getReference("Users").child(uid).setValue(user)
+                                    .addOnCompleteListener { task ->
+                                        if (task.isSuccessful) {
+                                            startActivity(Intent(this, MainActivity::class.java))
+                                            finish()
+                                        } else {
+                                            Toast.makeText(this, "Sign Up Failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                                        }
+                                    }
+                            }
                         } else {
-                            // Handle error
+                            Toast.makeText(this, "Sign Up Failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
                         }
                     }
             } else {
-                // Handle empty fields
+                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_LONG).show()
             }
+        }
+
+        signInTextView.setOnClickListener {
+            startActivity(Intent(this, SignInActivity::class.java))
         }
     }
 }
+
 

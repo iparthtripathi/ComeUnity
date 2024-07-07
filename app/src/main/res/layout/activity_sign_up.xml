@@ -1,68 +1,229 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true">
 
-    <EditText
-        android:id="@+id/emailEditText"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email" />
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:padding="16dp">
 
-    <EditText
-        android:id="@+id/passwordEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:inputType="textPassword" />
+        <TextView
+            android:id="@+id/greetingTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome \nto the \nCOME-UNITY!"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textAlignment="textStart"
+            android:layout_marginBottom="24dp"
+            android:padding="16dp" />
 
-    <EditText
-        android:id="@+id/nameEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Name" />
-
-    <!-- Residence Options -->
-    <RadioGroup
-        android:id="@+id/residenceRadioGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <!-- Repeat for all options -->
-        <RadioButton
-            android:id="@+id/blockARadioButton"
+        <EditText
+            android:id="@+id/nameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Block A" />
-        <RadioButton
-            android:id="@+id/blockBRadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Block B" />
-        <RadioButton
-            android:id="@+id/blockCRadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Block C" />
-        <RadioButton
-            android:id="@+id/kreaRadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Krea University" />
-    </RadioGroup>
+            android:hint="Enter your name"
+            android:inputType="textPersonName"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_background" />
 
-    <EditText
-        android:id="@+id/flatNumberEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Flat Number" />
+        <EditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your email"
+            android:inputType="textEmailAddress"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_background" />
 
-    <Button
-        android:id="@+id/signUpButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sign Up" />
-</LinearLayout>
+        <EditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your password"
+            android:inputType="textPassword"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_background" />
+
+        <ImageButton
+            android:id="@+id/passwordToggle"
+            android:layout_width="35dp"
+            android:layout_height="25dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/closed_eye"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_gravity="end"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/residenceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select your residence"
+            android:textSize="18sp"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:padding="16dp" />
+
+        <GridLayout
+            android:id="@+id/residenceGridLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal">
+
+            <!-- Block A Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="16dp"
+                android:backgroundTint="@color/white">
+
+                <RadioButton
+                    android:id="@+id/blockA"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Block A"
+                    android:gravity="center"
+                    android:button="@drawable/rounded_radiobutton"
+                    android:padding="16dp"
+                    android:background="@drawable/rounded_background" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- Block B Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="16dp"
+                android:backgroundTint="@color/white">
+
+                <RadioButton
+                    android:id="@+id/blockB"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Block B"
+                    android:gravity="center"
+                    android:button="@drawable/rounded_radiobutton"
+                    android:padding="16dp"
+                    android:background="@drawable/rounded_background" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- Block C Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="16dp"
+                android:backgroundTint="@color/white">
+
+                <RadioButton
+                    android:id="@+id/blockC"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Block C"
+                    android:gravity="center"
+                    android:button="@drawable/rounded_radiobutton"
+                    android:padding="16dp"
+                    android:background="@drawable/rounded_background" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- Krea Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="16dp"
+                android:backgroundTint="@color/white">
+
+                <RadioButton
+                    android:id="@+id/krea"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Krea"
+                    android:gravity="center"
+                    android:button="@drawable/rounded_radiobutton"
+                    android:padding="16dp"
+                    android:background="@drawable/rounded_background" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- IIIT Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="16dp"
+                android:backgroundTint="@color/white">
+
+                <RadioButton
+                    android:id="@+id/iiit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="IIIT"
+                    android:gravity="center"
+                    android:button="@drawable/rounded_radiobutton"
+                    android:padding="16dp"
+                    android:background="@drawable/rounded_background" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- Industry Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="16dp"
+                android:backgroundTint="@color/white">
+
+                <RadioButton
+                    android:id="@+id/industry"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Industry"
+                    android:gravity="center"
+                    android:button="@drawable/rounded_radiobutton"
+                    android:padding="16dp"
+                    android:background="@drawable/rounded_background" />
+            </androidx.cardview.widget.CardView>
+        </GridLayout>
+
+        <EditText
+            android:id="@+id/flatNumberEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your flat number"
+            android:inputType="text"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_background" />
+
+        <Button
+            android:id="@+id/signUpButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_button"
+            android:text="Sign Up"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/signInTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already have an account? Login Here"
+            android:textColor="@color/black"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
+</ScrollView>
